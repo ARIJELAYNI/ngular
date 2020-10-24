@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { GreeterComponent } from './greeter/greeter.component';
-
+import {createCustomElement} from '@angular/elements'
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,4 +15,9 @@ import { GreeterComponent } from './greeter/greeter.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(injector: Injector){
+    const el = createCustomElement(GreeterComponent, {injector:injector});
+    customElements.define('app-greeter',el)
+  }
+ }
